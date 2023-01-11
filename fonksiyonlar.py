@@ -1,3 +1,13 @@
+# Bir veriseti değişkeni/sütunu üstünde döngü ile gezmek istediğimizde ve aynı zamanda her değerin indeks değerini istediğimizde .enumerate() fonksiyonunu kullanabiliriz.
+for index, value in enumerate(dataframe[column]:
+    # value = döngü ile sütundaki değerleri tek tek gezerken taşıdığımız değerler
+    # index = sütun üstündeki değerlerde gezerken o değerin bulunduğu indeks değerini taşır                              
+
+# Bir veriseti üstünde döngü ile satır satır gezmek istediğimizde .iterrows() fonksiyonunu kullanabiliriz.                              
+for index, rows in dataframe.iterrows():
+    # rows = döngü ile verisetinde gezerken her bir satırını taşır. rows[col] ifadesi ile seçim yapabiliriz.
+    # index = her satırın indeks değerini taşır. 
+                              
 # Veriseti görüntüleneceği zaman bütün sütunları getirir. None yerine maksimum gelecek sütun sayısı yazılabilir.
 pd.set_option("display.max_columns", None)
 
