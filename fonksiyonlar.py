@@ -16,6 +16,9 @@ pd.set_option("display.max_rows", None)
 
 # Veriseti görüntüleneceği maksimum genişliği belirtir. None yerine tam sayı yazılabilir.
 pd.set_option("display.width", None)
+       
+# Verisetini tek bir satır halinde göstermeye çalışır
+pd.set_option("display.expand_frame_repr",  False)                              
 
 # Verisetindeki aykırı değerleri baskılamak için limit belirleme.
 def aykiri_limit(df, col):
