@@ -1,3 +1,12 @@
+# Requests modülü ile API'dan alınan JSON formatındaki verileri .get fonksiyonu ile aldık. Pandas modülünün .json_normalize() fonksiyonunun içine 
+# parametre olarak gönderdik. JSON formatını Pandas DataFrame yapısına çevirmiş oldu.
+import requests
+import pandas as pd
+url = "https://api.spacexdata.com/v4/launches/past"
+response = requests.get(url)
+data = pd.json_normalize(response.json())
+data.head()
+
 # Bir veriseti değişkeni/sütunu üstünde döngü ile gezmek istediğimizde ve aynı zamanda her değerin indeks değerini istediğimizde .enumerate() fonksiyonunu kullanabiliriz.
 for index, value in enumerate(dataframe[column]:
     # value = döngü ile sütundaki değerleri tek tek gezerken taşıdığımız değerler
