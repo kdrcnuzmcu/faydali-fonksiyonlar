@@ -1,3 +1,10 @@
+# Datetime tipinde olmayan tarih değişkenlerini datetime olarak atar.
+df["Date"] = pd.to_datetime(df["Date"])
+# Datetime değişkenine çevirdiğimiz değişkenden "yıl" değerini alır.
+df["Date"].dt.year
+# Tarih + Saat şeklinde değişkenlerden yalnızca tarihi alabilmemizi sağlar.
+df["Date"].dt.date
+
 # Requests modülü ile API'dan alınan JSON formatındaki verileri .get fonksiyonu ile aldık. Pandas modülünün .json_normalize() fonksiyonunun içine 
 # parametre olarak gönderdik. JSON formatını Pandas DataFrame yapısına çevirmiş oldu.
 import requests
