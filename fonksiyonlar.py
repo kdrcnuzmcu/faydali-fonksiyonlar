@@ -1,3 +1,6 @@
+# Bir sözlük yapısını değerleri ölçüsünde sıralamak
+sorted(example.items(), key = lambda x:x[1], reverse = True)
+
 # Datetime tipinde olmayan tarih değişkenlerini datetime olarak atar.
 df["Date"] = pd.to_datetime(df["Date"])
 # Datetime değişkenine çevirdiğimiz değişkenden "yıl" değerini alır.
