@@ -39,17 +39,19 @@ pd.set_option("display.width", None)
 # Verisetini tek bir satır halinde göstermeye çalışır
 pd.set_option("display.expand_frame_repr",  False)                              
 
-# Verisetindeki aykırı değerleri baskılamak için limit belirleme.
-def aykiri_limit(df, col):
-  Q1 = df[col].quantile(0.01)
-  Q3 = df[col].quantile(0.99)
-  IQR = Q3 - Q1
-  upLimit = Q3 + (1.5 * IQR)
-  lowLimit = Q1 - (1.5 * IQR)
-  return lowLimit, upLimit
-
-# Verisetindeki aykırı değerleri belirlenen limitlere baskılama
-def aykiri_baskilama(df, col):
-  lowLimit, upLimit = aykiri_limit(df, col)
-  df.loc[(df[col] < lowLimit), col] = lowLimit
-  df.loc[(df[col] > upLimit), col] = upLimit
+def outliers(df, col, low_Quantile = 0.25, high_Quantile = 0.75, adjust = False):  
+    Q1 = df[col].quantile(low_Quantile)
+    Q3 = df[col].quantile(high_Quantile)
+    IQR = Q3 - Q1
+    low_Limit = Q1 - (1.5 * IQR)
+    up_Limit = Q3 + (1.5 * IQR)
+    
+    if len(df[df[col] > up_Limit]) > 0:
+        print(col, ": Higher Outlier!")
+    if len(df[df[col] < low_Limit]) > 0:
+        print(col, ": Lower Outlier!")
+        
+    if adjust:
+        df.loc[(df[col] < low_Limit), col] = low_Limit
+        df.loc[(df[col] > up_Limit), col] = up_Limit
+        print(col, ": Done!")
