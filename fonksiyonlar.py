@@ -39,6 +39,29 @@ pd.set_option("display.width", None)
 # Verisetini tek bir satır halinde göstermeye çalışır
 pd.set_option("display.expand_frame_repr",  False)                              
 
+def grab_col_names(df, cat_th=10, car_th=20):
+
+    # Categorical Columns
+    cat_cols = [col for col in df.columns if df[col].dtypes == "O"]
+    num_but_cat = [col for col in df.columns if df[col].nunique() < cat_th and df[col].dtypes != "O"]
+    cat_but_car = [col for col in df.columns if df[col].nunique() > car_th and df[col].dtypes == "O"]
+    cat_cols = cat_cols + num_but_cat
+    cat_cols = [col for col in cat_cols if col not in cat_but_car]
+
+    # Numerical Columns
+    num_cols = [col for col in df.columns if df[col].dtypes != "O"]
+    num_cols = [col for col in num_cols if col not in num_but_cat]
+
+    # Results
+    print(f"Observations: {df.shape[0]}")
+    print(f"Variables: {df.shape[1]}")
+    print(f'cat_cols: {len(cat_cols)}')
+    print(f'num_cols: {len(num_cols)}')
+    print(f'cat_but_car: {len(cat_but_car)}')
+    print(f'num_but_cat: {len(num_but_cat)}')
+
+    return cat_cols, cat_but_car, num_cols                                                           
+                              
 def outliers(df, col, low_Quantile = 0.25, high_Quantile = 0.75, adjust = False):  
     Q1 = df[col].quantile(low_Quantile)
     Q3 = df[col].quantile(high_Quantile)
