@@ -39,6 +39,13 @@ pd.set_option("display.width", None)
 # Verisetini tek bir satır halinde göstermeye çalışır
 pd.set_option("display.expand_frame_repr",  False)                              
 
+# Kategorik değişken analizi                              
+def categorical_value_counts(df, col, target):   
+    print(df.groupby(col).agg(Count = (col, lambda x:x.count()), \
+                          Ratio = (col, lambda x:x.count() / len(df)), 
+                          Target_Ratio = (target, lambda x:x.sum() / df[target].sum())), "\n")
+
+# Verisetinin değişkenlerini tespit etme                                                                                     
 def grab_col_names(df, cat_th=10, car_th=20):
 
     # Categorical Columns
@@ -62,6 +69,7 @@ def grab_col_names(df, cat_th=10, car_th=20):
 
     return cat_cols, cat_but_car, num_cols                                                           
                               
+# Sayısal değişkenlerin aykırı değerleri tespit etme ve düzeltme
 def outliers(df, col, low_Quantile = 0.25, high_Quantile = 0.75, adjust = False):  
     Q1 = df[col].quantile(low_Quantile)
     Q3 = df[col].quantile(high_Quantile)
