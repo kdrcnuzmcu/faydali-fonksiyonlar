@@ -42,8 +42,9 @@ pd.set_option("display.expand_frame_repr",  False)
 # Kategorik değişken analizi                              
 def categorical_value_counts(df, col, target):   
     print(df.groupby(col).agg(Count = (col, lambda x:x.count()), \
-                          Ratio = (col, lambda x:x.count() / len(df)), 
-                          Target_Ratio = (target, lambda x:x.sum() / df[target].sum())), "\n")
+                          Ratio = (col, lambda x:x.count() / len(df)), \
+                          Target_Ratio = (target, lambda x:x.sum() / df[target].sum())) \
+                          .sort_values("Count", ascending = False), "\n")
 
 # Verisetinin değişkenlerini tespit etme                                                                                     
 def grab_col_names(df, cat_th=10, car_th=20):
