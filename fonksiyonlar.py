@@ -39,6 +39,15 @@ pd.set_option("display.width", None)
 # Verisetini tek bir satır halinde göstermeye çalışır
 pd.set_option("display.expand_frame_repr",  False)                              
 
+def plot_importance(model, features, num = 3):
+    feature_imp = pd.DataFrame({"Value": model.feature_importances_, "Feature": features.columns})
+    plt.figure(figsize=(10, 10))
+    sns.set(font_scale=1)
+    sns.barplot(x="Value", y="Feature", data=feature_imp.sort_values(by="Value", ascending=False)[0:num])
+    plt.title("Features")
+    plt.tight_layout()
+    plt.show()                              
+                                                       
 # Kategorik değişken analizi                              
 def categorical_value_counts(df, col, target):   
     print(df.groupby(col).agg(Count = (col, lambda x:x.count()), \
