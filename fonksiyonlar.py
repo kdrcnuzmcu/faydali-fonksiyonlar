@@ -1,3 +1,6 @@
+# Zaman serileri ile çalışırken zamana bağlı olarak bir pencere yapısında ilerleyerek değerler üzerinde işlem yapabilmeyi sağlayan fonksiyon
+df.sales.rolling(window=10).mean() # Birbirini takip eden 10 değeri seçer ve ortalamalarını alır. Bir pandas.series geri döner.
+
 # DataFrame içinde zaman/tarih değişkeni datetime kütüphanesi ile de düzenlenebiliyor.
 import datetime
 df.date = df.date.apply(lambda x: datetime.datetime.strptime(x, "%d.%m.%Y"))
