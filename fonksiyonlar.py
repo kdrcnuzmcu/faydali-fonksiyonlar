@@ -1,3 +1,7 @@
+# DataFrame içinde zaman/tarih değişkeni datetime kütüphanesi ile de düzenlenebiliyor.
+import datetime
+df.date = df.date.apply(lambda x: datetime.datetime.strptime(x, "%d.%m.%Y"))
+
 # Bir sözlük yapısını değerleri ölçüsünde sıralamak
 sorted(example.items(), key = lambda x:x[1], reverse = True)
 
