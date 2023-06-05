@@ -56,12 +56,23 @@ def plot_importance(model, features, num = 3):
     plt.show()                              
                                                        
 # Kategorik değişken analizi                              
-def categorical_value_counts(df, col, target):   
-    print(df.groupby(col).agg(Count = (col, lambda x:x.count()), \
-                          Ratio = (col, lambda x:x.count() / len(df)), \
-                          Target_Ratio = (target, lambda x:x.sum() / df[target].sum())) \
-                          .sort_values("Count", ascending = False), "\n")
+def categorical_value_counts(df, col, target, rare: Optional[float] = None):
+    temp = df.groupby(col, dropna=False).agg(Count=(col, lambda x: x.isnull().count()), \
+                               Ratio=(col, lambda x: x.isnull().count() / len(df)), \
+                               Target_Ratio=(target, lambda x: x.sum() / df[target].sum())) \
+        .sort_values("Count", ascending=False).reset_index()
 
+    if rare is not None:
+        rares = temp.loc[temp["Ratio"] <= float(rare), col].tolist()
+        df.loc[df[col].isin(rares), col] = "Rare Category"
+        print("---- Done! --- ")
+        print(df.groupby(col).agg(Count=(col, lambda x: x.count()), \
+                                  Ratio=(col, lambda x: x.count() / len(df)), \
+                                  Target_Ratio=(target, lambda x: x.sum() / df[target].sum())) \
+              .sort_values("Count", ascending=False).reset_index(), "\n")
+    else:
+        print(temp, "\n")
+                              
 # Verisetinin değişkenlerini tespit etme                                                                                     
 def grab_col_names(df, cat_th=10, car_th=20):
 
